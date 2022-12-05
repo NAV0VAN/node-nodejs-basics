@@ -2,10 +2,11 @@ import { rename as fsRename } from "node:fs"
 import { existsSync } from "fs"
 
 
-const rename = async () => {
+const filePath_1 = './src/fs/files/wrongFilename.txt'
+const filePath_2 = './src/fs/files/properFilename.md'
+
+const rename = async (filePath_1, filePath_2) => {
     try {
-        const filePath_1 = './src/fs/files/wrongFilename.txt'
-        const filePath_2 = './src/fs/files/properFilename.md'
         if (!existsSync(filePath_1) || existsSync(filePath_2)) {
             throw "FS operation failed (existsSync)"
         }
@@ -14,8 +15,8 @@ const rename = async () => {
             console.log('Rename complete!');
         });
     } catch (error) {
-        console.error(error)
+        console.error("ERROR: ", error)
     }
 };
 
-await rename();
+await rename(filePath_1, filePath_2);
