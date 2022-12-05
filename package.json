@@ -24,7 +24,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlreadyBored/node-nodejs-basics.git"
+    "url": "git+https://github.com/NAV0VAN/node-nodejs-basics.git"
   },
   "keywords": [
     "nodejs",
@@ -34,7 +34,7 @@
   "author": "alreadybored",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlreadyBored/node-nodejs-basics/issues"
+    "url": "https://github.com/NAV0VAN/node-nodejs-basics/issues"
   },
-  "homepage": "https://github.com/AlreadyBored/node-nodejs-basics#readme"
+  "homepage": "https://github.com/NAV0VAN/node-nodejs-basics#readme"
 }
