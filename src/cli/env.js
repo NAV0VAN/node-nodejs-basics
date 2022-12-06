@@ -6,7 +6,7 @@ const parseEnv = () => {
         const envVariables = process.env
         for (let nameVar in envVariables) {
             if (nameVar.startsWith("RSS_")) {
-                console.log(nameVar, " = ", envVariables[nameVar])
+                console.log(`${nameVar} = ${envVariables[nameVar]}`)
             }
         }
     } catch (error) {
