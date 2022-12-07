@@ -1,21 +1,17 @@
 import * as fs from 'node:fs/promises';
-import { existsSync } from 'node:fs';
+import { DIR_PATH, ERROR_MSG, SUCCESS_MSG } from './constants.js'
+
+const FILE_NAME = 'fresh.txt'
+const FILE_CONTENT = '"I am fresh and young"'
 
 const create = async () => {
     try {
-        if (existsSync("./src/fs/files/fresh.txt")) {
-            throw "FS operation failed"
-        } else {
-            fs.writeFile("./src/fs/files/fresh.txt", "I am fresh and young").then((err) => {
-                if (err) {
-                    console.log("ERROR in  fs.writeFile", err);
-                } else {
-                    console.log("Succsess, file create");
-                }
+        await fs.writeFile(`${DIR_PATH}/files/${FILE_NAME}`, FILE_CONTENT, { flag: 'wx' })
+            .then(() => {
+                console.info(SUCCESS_MSG)
             })
-        }
     } catch (error) {
-        console.log("ERROR in create() ", error)
+        throw new Error(ERROR_MSG);
     }
 }
 
