@@ -3,16 +3,14 @@ import { fileURLToPath } from 'url';
 import { release, version } from 'os';
 import { createServer as createServerHttp } from 'http';
 import './files/c.js';
-import * as a from './files/a.json' assert { type: "json" };
-import * as b from './files/b.json' assert { type: "json" };
 
 const random = Math.random();
 
 let unknownObject
 if (random > 0.5) {
-    unknownObject = a;
+    unknownObject = await import('./files/a.json', { assert: { type: "json" } })
 } else {
-    unknownObject = b;
+    unknownObject = await import('./files/b.json', { assert: { type: "json" } })
 }
 
 console.log(`Release ${release()}`);
