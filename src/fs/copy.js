@@ -1,40 +1,39 @@
 /**
  *  Копирование файлов из папки files в папку files_copy того же уровня вложенности
  */
-import * as path from 'path'
-import { mkdir, readdir, copyFile, constants } from 'node:fs/promises';
-import { existsSync } from 'node:fs';
-import * as url from 'url';
+import * as url from "url";
+import * as path from "path";
+import { mkdir, readdir, copyFile, constants } from "node:fs/promises";
+import { ERROR_MSG } from "./constants.js";
 
-const __filename = url.fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename)
-
-const folderNameFrom = `${__dirname}/files`
-const folderNameTo = `${__dirname}/files_copy`
+const FILE_PATH = url.fileURLToPath(import.meta.url);
+const DIR_PATH = path.dirname(FILE_PATH);
+const PATH_FROM = path.join(DIR_PATH, "files");
+const PATH_TO = path.join(DIR_PATH, "files_copy");
 
 const copy = async () => {
-    try {
-        if (existsSync(folderNameTo)) {
-            throw new Error("FS operation failed (existsSync())")
-        }
-        mkdir(folderNameTo, { recursive: false }).catch((err) => {
-            throw new Error('FS operation failed (mkdir())');
-        }
-        );
-        const files = await readdir(folderNameFrom).catch((err) => {
-            throw new Error('ERROR readdtr');
-        })
-        for (const file of files) {
-            let pathFrom = `${folderNameFrom}/${file}`
-            let pathTo = `${folderNameTo}/${file}`
-            copyFile(pathFrom, pathTo, constants.COPYFILE_EXCL).catch((err) => {
-                throw new Error('File exist');
-            }
-            );
-        }
-    } catch (error) {
-        console.error(error)
-    }
+      try {
+            mkdir(PATH_TO, { recursive: false }).catch((err) => {
+                  throw new Error(`${ERROR_MSG} (directory ${PATH_TO} exists)`);
+            });
+            const files = await readdir(PATH_FROM).catch((err) => {
+                  throw new Error(`${ERROR_MSG}  (directory ${PATH_FROM} read error`);
+            });
+            const promises = files.map((fileName) => {
+                  copyFile(
+                        `${PATH_FROM}/${fileName}`,
+                        `${PATH_TO}/${fileName}`,
+                        constants.COPYFILE_EXCL
+                  ).catch((err) => {
+                        throw new Error(
+                              `${ERROR_MSG}`
+                        );
+                  });
+            });
+            await Promise.all(promises);
+      } catch (error) {
+            console.error(error);
+      }
 };
 
 await copy();
