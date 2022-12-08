@@ -13,3 +13,20 @@ const read = async () => {
 };
 
 await read();
+
+
+// Функция, которая читает содержимое файла fileToRead.txt с помощью Readable Stream
+// и печатает его содержимое в console.log по чанкам
+
+// async function readDataFromFile() {
+//     try {
+//         const readable = createReadStream(FILE_PATH, { highWaterMark: 20 })
+//         for await (const chunk of readable) {
+//             console.log(`Read ${chunk.length} bytes\n"${chunk.toString()}"\n`);
+//         }
+//     } catch (error) {
+//         throw new Error('ERROR: no read data')
+//     }
+// }
+
+// readDataFromFile()
